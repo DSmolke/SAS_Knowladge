@@ -230,6 +230,13 @@ quit;
 - Combine tables using set operators - union, outer union, except, intersect.
 https://support.sas.com/documentation/cdl/en/sqlproc/63043/HTML/default/viewer.htm#n0vo2lglyrnexwn14emi8m0jqvrj.htm
 (błędna formuła dokumentacji)
+
+
+
+https://github.com/DSmolke/SAS_Knowladge/assets/106284705/293d961a-5aa8-47e8-97f7-61c4ed892bf1
+
+
+
 ```
 data set1;
     input x $ z;
@@ -294,7 +301,6 @@ proc sql;
 	union all
 	select * from set2;
 quit;
-
 ```
 - Sort data with an ORDER BY clause.
 - Assign labels and formats to columns
