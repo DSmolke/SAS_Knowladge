@@ -15,6 +15,12 @@
 
 ### Moduł 1 - Generate detail reports by working with a single table, joining tables, or using set operators in SQL
 
+
+
+https://github.com/DSmolke/SAS_Knowladge/assets/106284705/24cf1498-791d-4d2d-9074-0fc5711edc1e
+
+
+
 - Use PROC SQL to perform SQL queries.
 - Select columns in a table with a SELECT statement and FROM clause.
 - Create a table from a query result set.
@@ -26,6 +32,12 @@
     quit;
 ```
 
+
+
+https://github.com/DSmolke/SAS_Knowladge/assets/106284705/2a64e53f-7d01-4f70-ae67-5c72da0b7652
+
+
+
 - Create new calculated columns
 - Assign an alias with the AS keyword
 
@@ -35,6 +47,12 @@
         from sashelp.baseball;
     quit;
 ```
+
+
+
+https://github.com/DSmolke/SAS_Knowladge/assets/106284705/25b09645-66c7-48a2-843e-4e34e4ae2b5c
+
+
 
 - Use case logic to select values for a column.
 - Retrieve rows that satisfy a condition with a WHERE clause.
@@ -48,11 +66,17 @@
                 else 'low'
             end as HomeRunScore
         from sashelp.baseball
-        where crAtBat > 200;
+        where crAtBat < 200;
         
     quit;
 
 ```
+
+
+
+https://github.com/DSmolke/SAS_Knowladge/assets/106284705/8548f525-d632-42dd-be1c-a58f51c562a3
+
+
 
 -  Subset data by calculated columns
 
@@ -69,44 +93,137 @@
 
 [placeholder na grafikę joinów]
 
-```
-    proc sql;
-    	create table work.sales_inner_join as
-        select a.*, b.MapIDNameAbrv as state_abbreviation
-        from sashelp.prdsal2 a
-        inner join sashelp.gcstate b /*, = inner join*/
-        on a.state = b.MapIDName;
-    quit;
-```
+
+
+
+
+
+https://github.com/DSmolke/SAS_Knowladge/assets/106284705/47785274-c372-432c-837b-bc40569d3b48
+
+
+
+
 
 ```
-    proc sql;
-        create table state_full_join as
-        select a.*, coalesce(Country, ISOalpha3) as Country_Name
-        from sashelp.prdsal2 a
-            full join sashelp.gcstate b
-        on a.state = b.MapIDName;
-    quit;
+data work.set1;
+    input x $ z;
+    datalines;
+A 1
+B 2
+;
+run;
+
+data work.set2;
+    input w $ y;
+    datalines;
+A 3
+B 2
+D 1
+;
+run;
+
+proc sql;
+	select * from work.set1;
+	select * from work.set2;
+quit;
+
+proc sql;
+	select
+		a.*,
+		b.*
+	from work.set1 a
+	inner join work.set2 b 
+	on a.x = b.w;
+quit;
 ```
+
+
+
+https://github.com/DSmolke/SAS_Knowladge/assets/106284705/e405d151-e1d9-480a-a9bf-8e916b52778b
+
+
+
 ```
-    proc sql;
-        create table flights_right_join as
-        select b.*, coalesce(a.statename, 'NON_US') as State
-        from sashelp.zipcode a
-            right join sashelp.revhub2 b
-        on a.city = b.hub
-        where b.hub <> 'London';
-    quit;
+data work.set1;
+    input x $ z;
+    datalines;
+A 1
+B 2
+;
+run;
+
+data work.set2;
+    input w $ y;
+    datalines;
+A 3
+B 2
+D 1
+;
+run;
+
+proc sql;
+	select * from work.set1;
+	select * from work.set2;
+quit;
+
+proc sql;
+	select 
+		a.*,
+		b.*,
+		coalesce(a.x, b.w) as coalesce_var
+	from work.set1 a 
+	full join work.set2 b 
+	on a.x = b.w;
+quit;
 ```
+
+
+
+https://github.com/DSmolke/SAS_Knowladge/assets/106284705/7fada16c-d33b-42a0-b395-8caeb3dbaa9d
+
+
+
 ```
-    proc sql;
-        create table flights_left_join as
-        select a.*, coalesce(b.statename, 'NON_US') as State
-        from sashelp.revhub2 a
-            left join sashelp.zipcode b
-        on a.hub = b.city
-        where a.hub <> 'London'; /* Stan Kentucky posiada miasto London :) */
-    quit;
+data work.set1;
+    input x $ z;
+    datalines;
+A 1
+B 2
+C 3
+;
+run;
+
+data work.set2;
+    input w $ y;
+    datalines;
+A 3
+B 2
+D 1
+;
+run;
+
+proc sql;
+	select * from work.set1;
+	select * from work.set2;
+quit;
+
+proc sql;
+	select
+		a.*,
+		b.*
+	from work.set1 a
+	right join work.set2 b
+	on a.x = b.w;
+quit;
+
+proc sql;
+	select
+		a.*,
+		b.*
+	from work.set1 a
+	left join work.set2 b
+	on a.x = b.w;
+quit;
 
 ```
 
