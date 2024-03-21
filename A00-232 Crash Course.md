@@ -699,6 +699,12 @@ https://github.com/DSmolke/SAS_Knowladge/assets/106284705/f595aca5-298b-49d7-855
 
 ```
 
+
+
+https://github.com/DSmolke/SAS_Knowladge/assets/106284705/95296317-eaad-4e35-a83f-45a2344d8238
+
+
+
 - Use the SAS AUTOCALL facility to permanently store and call macros
 https://support.sas.com/documentation/cdl/en/mcrolref/61885/HTML/default/viewer.htm#a001328769.htm
 
@@ -720,6 +726,10 @@ https://support.sas.com/documentation/cdl/en/mcrolref/61885/HTML/default/viewer.
 ```
 
 ### Moduł 3 - Use macro functions.
+
+
+https://github.com/DSmolke/SAS_Knowladge/assets/106284705/18e0089a-420f-47f4-bab3-95b3a26c79f1
+
 
 - Use macro functions. (%SCAN, %SUBSTR, %UPCASE)
 
@@ -756,6 +766,11 @@ https://support.sas.com/documentation/cdl/en/mcrolref/61885/HTML/default/viewer.
     quit;
 ```
 
+
+https://github.com/DSmolke/SAS_Knowladge/assets/106284705/e1804bf4-867c-4138-96e7-abb22bcbddc0
+
+
+
 - Use macro quoting functions. (%NRSTR, %STR)
 - Use macro evaluation functions. (%SYSEVALF)
 - Use %SYSFUNC to execute DATA step functions within the SAS Macro Language.
@@ -774,6 +789,12 @@ https://support.sas.com/documentation/cdl/en/mcrolref/61885/HTML/default/viewer.
 ```
 
 ### Moduł 4 - Debug macros
+
+
+
+https://github.com/DSmolke/SAS_Knowladge/assets/106284705/74e2b20a-ce5f-492f-9b91-e5d681ca6cda
+
+
 
 - Trace the flow of execution with the MLOGIC option. 
 - Examine the generated SAS statements with the MPRINT option.
@@ -808,6 +829,10 @@ Obskoczyć po kolei różnice w logu na diff toolu po dodaniu kolejnej opcji
 
 ### Moduł 5 - Create data-driven programs using SAS Macro Language.
 
+
+https://github.com/DSmolke/SAS_Knowladge/assets/106284705/2737d0bc-a2c8-4c52-b7ab-4915e8ef19a0
+
+
 • Create a series of macro variables.
 • Use indirect reference to macro variables. (&&, etc.)
 • Generate repetitive macro calls.
@@ -830,6 +855,10 @@ Obskoczyć po kolei różnice w logu na diff toolu po dodaniu kolejnej opcji
     %display_brands();
 
 ```
+
+
+https://github.com/DSmolke/SAS_Knowladge/assets/106284705/d1f4bb14-4acc-4f9b-bc99-bd0641c72788
+
 
 - Incorporate DICTONARY tables in data driven macros.
 
