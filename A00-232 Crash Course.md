@@ -302,6 +302,16 @@ proc sql;
 	select * from set2;
 quit;
 ```
+
+
+
+
+https://github.com/DSmolke/SAS_Knowladge/assets/106284705/2e850c61-8e5c-4e27-b7be-f384facbaa36
+
+
+
+
+
 - Sort data with an ORDER BY clause.
 - Assign labels and formats to columns
 
@@ -315,6 +325,12 @@ quit;
 ```
 
 ## Moduł 2 - Generate summary reports by working with a single table, joining tables, or using set operators in the SQL
+
+
+
+https://github.com/DSmolke/SAS_Knowladge/assets/106284705/bc38d1bf-4a8e-4c1f-a4ab-7ff154d5042a
+
+
 
 - Summarize data across and down columns using summary functions (AVG, COUNT, 
 MAX, MIN, SUM)
@@ -331,6 +347,12 @@ MAX, MIN, SUM)
     quit;
 
 ```
+
+
+
+https://github.com/DSmolke/SAS_Knowladge/assets/106284705/e66a9b3c-9169-42ac-b714-d9095b6fda94
+
+
 
 - Group data using GROUP BY clause. 
 - Filter grouped data using HAVING clause.
@@ -352,6 +374,11 @@ MAX, MIN, SUM)
 ```
 
 
+
+https://github.com/DSmolke/SAS_Knowladge/assets/106284705/15240043-0392-4fe5-876f-473414b637a4
+
+
+
 - Eliminate duplicate values with the DISTINCT keyword.
 
 ```
@@ -367,6 +394,12 @@ MAX, MIN, SUM)
 ```
 
 ### Moduł 3 - Construct sub-queries and in-line views within an SQL procedure step. 
+
+
+
+https://github.com/DSmolke/SAS_Knowladge/assets/106284705/67232200-aa89-4871-b17e-c960f23db10f
+
+
 
 - Subset data by using non-correlated subqueries.
 - Reference an in-line view with other views or tables (multiple tables). 
@@ -391,6 +424,10 @@ MAX, MIN, SUM)
 
 ### Moduł 4 -  Use SAS SQL procedure enhancements.
 
+
+https://github.com/DSmolke/SAS_Knowladge/assets/106284705/7100e6ac-a7dc-4428-bc62-6a2036f38f4d
+
+
 - Use SAS data set options with PROC SQL (KEEP=, DROP=, RENAME=, OBS=).
 
 ```
@@ -398,6 +435,13 @@ MAX, MIN, SUM)
 	    select * from sashelp.cars(keep=make model msrp where=(msrp > 15000) rename=(make=Brand));
     quit;
 ```
+
+
+
+https://github.com/DSmolke/SAS_Knowladge/assets/106284705/0d3d36a2-180f-45df-ba6f-cb42efb6d7ab
+
+
+
 - Use PROC SQL invocation options (INOBS=, OUTOBS=, NUMBER)
 ```
     proc sql inobs=1;
@@ -413,6 +457,10 @@ MAX, MIN, SUM)
     quit;
 ```
 
+
+https://github.com/DSmolke/SAS_Knowladge/assets/106284705/e16125c7-1ff4-4a8c-a676-43917f6cc667
+
+
 - Use PROC SQL invocation options (NOPRINT)
 invoke - wywołać
 
@@ -422,6 +470,11 @@ invoke - wywołać
     quit;
 
 ```
+
+
+https://github.com/DSmolke/SAS_Knowladge/assets/106284705/d3e08018-417a-45bb-8906-d0acd86dbaf4
+
+
 
 - Use SAS functions (SCAN, SUBSTR, LENGTH)
 
@@ -444,6 +497,13 @@ invoke - wywołać
         from sashelp.cars;
     quit;
 ```
+
+
+
+
+https://github.com/DSmolke/SAS_Knowladge/assets/106284705/397015f9-9e73-4246-bff1-356a8b6f1c61
+
+
 
 - Access SAS system information by using DICTIONARY tables (members, tables, 
 columns)
@@ -471,6 +531,12 @@ columns)
 
 ## Moduł 1 - Create and use user-defined and automatic macro variables within the SAS Macro Language.
 
+
+
+https://github.com/DSmolke/SAS_Knowladge/assets/106284705/1631fa5c-9ee8-47c6-864e-47cd0566a715
+
+
+
 - Define and use macro variables.
 - Use macro variable name delimiter. (.)
 
@@ -479,6 +545,12 @@ columns)
     %put &country;
     %put &country.&country;
 ```
+
+
+
+https://github.com/DSmolke/SAS_Knowladge/assets/106284705/024fae83-a7c7-41f6-b494-dbe4b85b75c7
+
+
 
 - Use INTO clause of the SELECT statement in SQL to create a single variable or a list of variables. 
 
@@ -499,6 +571,12 @@ columns)
     %put &cars_types.;
 ```
 
+
+
+https://github.com/DSmolke/SAS_Knowladge/assets/106284705/7cfb251c-2d65-4991-b3b2-d319d7f6cca6
+
+
+
 - Use the SYMPUTX routine in a DATA Step to create a single variable or a list of variables.
 
 ```
@@ -516,6 +594,12 @@ columns)
     %put _ALL_;
 
 ```
+
+
+
+https://github.com/DSmolke/SAS_Knowladge/assets/106284705/1b5efe14-0265-4d1b-ba72-7217a57e7e5b
+
+
 
 - Control variable scope with:
     - %GLOBAL statement 
@@ -538,6 +622,12 @@ columns)
 ```
 
 ### Moduł 2 - Automate programs by defining and calling macros using the SAS Macro Language.
+
+
+
+https://github.com/DSmolke/SAS_Knowladge/assets/106284705/153f539c-5600-4dea-97e2-60ff18b904da
+
+
 
 - Define a macro using the %MACRO and %MEND statements.
 - Calling a macro with and without parameters.
