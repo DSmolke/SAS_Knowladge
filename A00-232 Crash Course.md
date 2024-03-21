@@ -25,7 +25,7 @@ https://github.com/DSmolke/SAS_Knowladge/assets/106284705/24cf1498-791d-4d2d-907
 - Select columns in a table with a SELECT statement and FROM clause.
 - Create a table from a query result set.
 
-```
+```sql
     proc sql;
         create table baseball_1 as
         select name, team, natbat from sashelp.baseball;
@@ -41,7 +41,7 @@ https://github.com/DSmolke/SAS_Knowladge/assets/106284705/2a64e53f-7d01-4f70-ae6
 - Create new calculated columns
 - Assign an alias with the AS keyword
 
-```
+```sql
     proc sql;
         select name, (crhome / cratbat) * 100 as HomeRunsPercentage
         from sashelp.baseball;
@@ -57,7 +57,7 @@ https://github.com/DSmolke/SAS_Knowladge/assets/106284705/25b09645-66c7-48a2-843
 - Use case logic to select values for a column.
 - Retrieve rows that satisfy a condition with a WHERE clause.
 
-```
+```sql
     proc sql;
         select name, 
             case
@@ -80,7 +80,7 @@ https://github.com/DSmolke/SAS_Knowladge/assets/106284705/8548f525-d632-42dd-be1
 
 -  Subset data by calculated columns
 
-```
+```sql
     proc sql;
         create table work.baseball2 as
         select *, (crhome / cratbat) * 100 as HomeRunsPercentage
@@ -104,7 +104,7 @@ https://github.com/DSmolke/SAS_Knowladge/assets/106284705/47785274-c372-432c-837
 
 
 
-```
+```sql
 data work.set1;
     input x $ z;
     datalines;
@@ -143,7 +143,7 @@ https://github.com/DSmolke/SAS_Knowladge/assets/106284705/e405d151-e1d9-480a-a9b
 
 
 
-```
+```sql
 data work.set1;
     input x $ z;
     datalines;
@@ -183,7 +183,7 @@ https://github.com/DSmolke/SAS_Knowladge/assets/106284705/7fada16c-d33b-42a0-b39
 
 
 
-```
+```sql
 data work.set1;
     input x $ z;
     datalines;
@@ -237,7 +237,7 @@ https://github.com/DSmolke/SAS_Knowladge/assets/106284705/293d961a-5aa8-47e8-97f
 
 
 
-```
+```sql
 data set1;
     input x $ z;
     datalines;
@@ -315,7 +315,7 @@ https://github.com/DSmolke/SAS_Knowladge/assets/106284705/2e850c61-8e5c-4e27-b7b
 - Sort data with an ORDER BY clause.
 - Assign labels and formats to columns
 
-```
+```sql
     proc sql noprint;
         create table cars_euro as 
         select make, model, msrp, msrp*0.9 as EuroMSRP "MSRP in EURO" format euro32.
@@ -335,7 +335,7 @@ https://github.com/DSmolke/SAS_Knowladge/assets/106284705/bc38d1bf-4a8e-4c1f-a4a
 - Summarize data across and down columns using summary functions (AVG, COUNT, 
 MAX, MIN, SUM)
 
-```
+```sql
     proc sql;
         select 
             avg(msrp) as avg_msrp,
@@ -357,7 +357,7 @@ https://github.com/DSmolke/SAS_Knowladge/assets/106284705/e66a9b3c-9169-42ac-b71
 - Group data using GROUP BY clause. 
 - Filter grouped data using HAVING clause.
 
-```
+```sql
     proc sql;
         select type, avg(msrp) as avg_msrp
         from sashelp.cars
@@ -381,7 +381,7 @@ https://github.com/DSmolke/SAS_Knowladge/assets/106284705/15240043-0392-4fe5-876
 
 - Eliminate duplicate values with the DISTINCT keyword.
 
-```
+```sql
     proc sql;
         select type
         from sashelp.cars;
@@ -404,7 +404,7 @@ https://github.com/DSmolke/SAS_Knowladge/assets/106284705/67232200-aa89-4871-b17
 - Subset data by using non-correlated subqueries.
 - Reference an in-line view with other views or tables (multiple tables). 
 
-```
+```sql
     proc sql;
         select 
             min(msrp) as min_msrp format dollar32.,
@@ -430,7 +430,7 @@ https://github.com/DSmolke/SAS_Knowladge/assets/106284705/7100e6ac-a7dc-4428-bc6
 
 - Use SAS data set options with PROC SQL (KEEP=, DROP=, RENAME=, OBS=).
 
-```
+```sql
     proc sql;
 	    select * from sashelp.cars(keep=make model msrp where=(msrp > 15000) rename=(make=Brand));
     quit;
@@ -443,7 +443,7 @@ https://github.com/DSmolke/SAS_Knowladge/assets/106284705/0d3d36a2-180f-45df-ba6
 
 
 - Use PROC SQL invocation options (INOBS=, OUTOBS=, NUMBER)
-```
+```sql
     proc sql inobs=1;
         select avg(msrp) as local_average, * from sashelp.cars;
     quit;
@@ -464,7 +464,7 @@ https://github.com/DSmolke/SAS_Knowladge/assets/106284705/e16125c7-1ff4-4a8c-a67
 - Use PROC SQL invocation options (NOPRINT)
 invoke - wywołać
 
-```
+```sql
     proc sql /*noprint*/;
         select * from sashelp.cars;
     quit;
@@ -478,7 +478,7 @@ https://github.com/DSmolke/SAS_Knowladge/assets/106284705/d3e08018-417a-45bb-890
 
 - Use SAS functions (SCAN, SUBSTR, LENGTH)
 
-```
+```sql
     data work.tmp;
         set sashelp.cars;
         short_model = SCAN(model, 1);
@@ -508,7 +508,7 @@ https://github.com/DSmolke/SAS_Knowladge/assets/106284705/397015f9-9e73-4246-bff
 - Access SAS system information by using DICTIONARY tables (members, tables, 
 columns)
 
-```
+```sql
     proc sql feedback;
         select *
         from dictionary.columns
@@ -519,7 +519,7 @@ columns)
 
 -  Use the CALCULATED keyword.
 
-```
+```sql
     proc sql;
         select *, msrp + 1000 as inflation_msrp
         from sashelp.cars
@@ -540,7 +540,7 @@ https://github.com/DSmolke/SAS_Knowladge/assets/106284705/1631fa5c-9ee8-47c6-864
 - Define and use macro variables.
 - Use macro variable name delimiter. (.)
 
-```
+```sql
     %let country = Poland;
     %put &country;
     %put &country.&country;
@@ -554,7 +554,7 @@ https://github.com/DSmolke/SAS_Knowladge/assets/106284705/024fae83-a7c7-41f6-b49
 
 - Use INTO clause of the SELECT statement in SQL to create a single variable or a list of variables. 
 
-```
+```sql
     proc sql inobs=1 /*noprint*/;
         select make, msrp
         into :make_var, :msrp_var
@@ -579,7 +579,7 @@ https://github.com/DSmolke/SAS_Knowladge/assets/106284705/7cfb251c-2d65-4991-b3b
 
 - Use the SYMPUTX routine in a DATA Step to create a single variable or a list of variables.
 
-```
+```sql
     data _NULL_;
         set sashelp.cars(obs=1);
         call symputx('make', make, 'g');
@@ -606,7 +606,7 @@ https://github.com/DSmolke/SAS_Knowladge/assets/106284705/1b5efe14-0265-4d1b-ba7
     - %LOCAL statement
     - SYMPUTX scope parameter
 
-```
+```sql
     /*%global local_var;*/
     %macro declare_var();
     /* 	%global local_var; */
@@ -633,7 +633,7 @@ https://github.com/DSmolke/SAS_Knowladge/assets/106284705/153f539c-5600-4dea-97e
 - Calling a macro with and without parameters.
 - Document macro functionality with comments
 
-```
+```sql
 %macro keep_columns(columns);
 /****************************************************************************************/
 /*** Prupose: Creates datastep keep statement that contains provided column names *******/
@@ -666,7 +666,7 @@ https://github.com/DSmolke/SAS_Knowladge/assets/106284705/f595aca5-298b-49d7-855
 
 -  Generate SAS Code conditionally by using the %IF-%THEN-%ELSE macro statements or iterative %DO statements.
 
-```
+```sql
     %macro generate_report(version, inobs=10);
         %if &version. = 1 %then %do;
             %let option=noprint;
@@ -702,7 +702,7 @@ https://github.com/DSmolke/SAS_Knowladge/assets/106284705/f595aca5-298b-49d7-855
 - Use the SAS AUTOCALL facility to permanently store and call macros
 https://support.sas.com/documentation/cdl/en/mcrolref/61885/HTML/default/viewer.htm#a001328769.htm
 
-```
+```sql
     /* First step - create catalog */
     libname macrodir '/home/u62703738/macro-store';
     options mstored sasmstore=macrodir mautosource;
@@ -724,7 +724,7 @@ https://support.sas.com/documentation/cdl/en/mcrolref/61885/HTML/default/viewer.
 - Use macro functions. (%SCAN, %SUBSTR, %UPCASE)
 
 
-```
+```sql
     data work.experssion_table;
     infile datalines delimiter=','; 
     input expression $;
@@ -760,7 +760,7 @@ https://support.sas.com/documentation/cdl/en/mcrolref/61885/HTML/default/viewer.
 - Use macro evaluation functions. (%SYSEVALF)
 - Use %SYSFUNC to execute DATA step functions within the SAS Macro Language.
 
-```
+```sql
     %put some ; epic ; statement; /* Error */
     %put %str(some ; epic ; statement;);
     %put %str(%some ; &epic ; &&statement;); /* Warning */
@@ -783,7 +783,7 @@ https://support.sas.com/documentation/cdl/en/mcrolref/61885/HTML/default/viewer.
 https://www.diffchecker.com/text-compare/
 
 Obskoczyć po kolei różnice w logu na diff toolu po dodaniu kolejnej opcji
-```
+```sql
     options mlogic mprint symbolgen;
     %macro generate_report(version, inobs=10);
         %if &version. = 1 %then %do;
@@ -812,7 +812,7 @@ Obskoczyć po kolei różnice w logu na diff toolu po dodaniu kolejnej opcji
 • Use indirect reference to macro variables. (&&, etc.)
 • Generate repetitive macro calls.
 
-```tsql
+```sql
     proc sql number;
 	select distinct make
 		into :brand1 - 
@@ -833,7 +833,7 @@ Obskoczyć po kolei różnice w logu na diff toolu po dodaniu kolejnej opcji
 
 - Incorporate DICTONARY tables in data driven macros.
 
-```tsql
+```sql
     proc sql inobs=5;
         create table dict as
         select * from dictionary.columns;
@@ -865,7 +865,7 @@ Obskoczyć po kolei różnice w logu na diff toolu po dodaniu kolejnej opcji
 - Define and use numeric arrays
 - Create variables with arrays
 
-```tsql
+```sql
     data work.tmp;
     set sashelp.cars;
 /* 	array CO2_emition {2} fuel electric (0.432, 0); */
