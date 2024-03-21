@@ -658,6 +658,12 @@ https://github.com/DSmolke/SAS_Knowladge/assets/106284705/153f539c-5600-4dea-97e
     %report_factory(select * from sashelp.cars);
 ```
 
+
+
+https://github.com/DSmolke/SAS_Knowladge/assets/106284705/f595aca5-298b-49d7-8556-d4ba059e7772
+
+
+
 -  Generate SAS Code conditionally by using the %IF-%THEN-%ELSE macro statements or iterative %DO statements.
 
 ```
