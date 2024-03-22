@@ -1178,3 +1178,15 @@ quit;
 - Metacharacters: ()[]{}*+?.|^$\d\D\s\S\w\W
 - Functions and call routines: PRXMATCH, PRXPARSE, PRXCHANGE
 
+```sql
+data tmp;
+	expression1 = "Agent007";
+	expression2 = "double007";
+	regex1 = prxparse('/^(A)gent\d{3}$/');
+	
+	does_match1 = prxmatch(regex1, expression1);
+	does_match2 = prxmatch(regex1, expression2);
+	
+	expression3 = prxchange('s/(\D+)(\d+)/$2$1/', -1, expression1);
+run;
+```
