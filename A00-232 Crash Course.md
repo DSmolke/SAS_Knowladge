@@ -890,18 +890,291 @@ https://github.com/DSmolke/SAS_Knowladge/assets/106284705/d1f4bb14-4acc-4f9b-bc9
 
 ### Moduł 1 - Process data using 1 and 2 dimensional arrays
 
-- Define and use character arrays.
+- Define and use character arrays
 - Define and use numeric arrays
 - Create variables with arrays
+- Define arrays as temporary arrays
 
 ```sql
-    data work.tmp;
-    set sashelp.cars;
-/* 	array CO2_emition {2} fuel electric (0.432, 0); */
-    array CO2_emition {2} _TEMPORARY_ (0.432, 0);
-    
-    if (electric = 0) then total_emition = horsepower * CO2_emition{1};
-    else total_emition = horsepower * CO2_emition{2};
-/* 	array test{4} _TEMPORARY_ (90 80 70 70); */
-    run;
+data work.arr_demo;
+	array temperature[6] mon tue wed thu fri sat (5, 10, 11.5, 10,5, 9);
+	array weekday[6] $9 /*_temporary_*/ ("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
+	do i = 1 to 6;
+		put 'NOTE: ' weekday[i] 'temperature was ' temperature[i];
+	end;
+	
+	monday_name1 = weekday1;
+	monday_name2 = weekday[1];
+run;
 ```
+
+- Reference arrays within a DO loop
+
+```sql
+data work.arr_demo;
+	array open_array[*] a1-a10; /* SAS przeliczy długość tablicy */
+	do i = 1 to dim(open_array);
+		open_array[i] = i;
+	end;
+run;
+```
+
+- Load initial values for an array from a SAS data set
+```sql
+proc sql;
+	create table work.cars_msrp_stats as
+	select 
+		min(msrp) as msrp_min,
+		avg(msrp) as msrp_avg,
+		max(msrp) as msrp_max
+	from sashelp.cars;
+quit;
+
+data work.stats_arr;
+	set work.cars_msrp_stats sashelp.cars;
+	array cars_stats[3] msrp_min msrp_avg msrp_max;
+
+run;
+
+data work.datalines_arr;
+/* 	input a1-a3 b1-b3; */
+	input a1-a6;
+/* 	array values[2, 3] a1-a3 b1-b3; */
+	array values[6] a1-a6;
+	
+datalines;
+1 2 3
+4 5 6
+;
+
+run; 
+```
+- Specify the array dimension with the DIM function
+
+```sql
+data work.dim_demo;
+	array matrix[1, 2, 3];
+	
+	length1 = dim(matrix);
+	length2 = dim2(matrix);
+	length3 = dim2(matrix);
+	
+	do i=1 to dim(matrix);
+		do j=1 to dim2(matrix);
+			do k=1 to dim3(matrix);
+				matrix[i, j, k] = rand('Integer', 1, 1000);
+			end;
+		end;
+	end;
+	
+run;
+```
+
+### Moduł 2 - Process data using hash objects.
+
+- Declare hash and hash iterator objects
+	- Dataset argument
+	- Ordered argument
+	- Multidata argument
+- Use hash object methods
+	- definekey()
+	- definedata()
+	- definedone()
+	- find()
+	- add()
+	- output()
+- Use hash iterator object methods
+	- first()
+	- next()
+	- last()
+	- prev()
+- Use hash objects as lookup tables.
+- Use hash objects to create sorted data sets.
+- Use hash iterator objects to access data in forward or reverse key order
+```
+
+
+/* 
+
+• Declare hash and hash iterator objects
+	o Dataset argument
+	o Ordered argument
+	o Multidata argument
+• Use hash object methods
+	o definekey()
+	o definedata()
+	o definedone()
+	o find()
+	o add()
+	o output()
+• Use hash iterator object methods
+	o first()
+	o next()
+	o last()
+	o prev()
+• Use hash objects as lookup tables.
+• Use hash objects to create sorted data sets.
+• Use hash iterator objects to access data in forward or reverse key order
+ */
+
+proc sql;
+	create table work.cars as
+	select make, model from sashelp.cars;
+quit;
+
+data _null_;
+	length make $ 13 model $ 40;
+	
+	if _n_ = 1 then do;
+	    declare hash my_hash(dataset: "work.cars", ordered: 'a');
+	    rc = my_hash.definekey('make');
+	    rc = my_hash.definedata('make', 'model'); /*ważne - tutaj dajemy także klucz jeżeli robimy output*/
+	    my_hash.definedone();
+	 end;
+	 
+	 
+/* 	rc = my_hash.add(key: 'Fiat', data: '126p'); */
+	
+	
+	declare hiter my_hash_iter('my_hash');
+/* 	first														 last		   */
+/* 	[(make, model), (make, model), (make, model), (make, model), (make, model)] */
+	bongo_bongo = my_hash_iter.first();
+	do while (bongo_bongo = 0);
+
+		put 'NOTE: ' model;
+		bongo_bongo = my_hash_iter.next();
+	end;
+	
+	bongo_bongo = my_hash_iter.last();
+	do while (bongo_bongo = 0);
+
+		put 'WARNING: ' model;
+		bongo_bongo = my_hash_iter.prev();
+	end;
+
+run;
+
+data _NULL_;
+	if 0 then set work.cars;
+		if _n_ = 1 then do;
+		    declare hash my_hash(multidata: 'y', ordered: 'a');
+		    rc = my_hash.definekey('make');
+		    rc = my_hash.definedata('make', 'model');
+		    my_hash.definedone();
+		    call missing(make,model);
+	 	end;
+	set work.cars end=end;
+	my_hash.add();
+	if end then do;
+		rc = my_hash.output(dataset:"work.make_model_dict");
+		
+		rc = my_hash.find(key: 'Audi');
+		if (rc = 0) then do;
+			put 'WARNING: ' 'Found make: ' make 'Found model: ' model;
+			rc = my_hash.find_next();
+			do while (rc = 0);
+				put 'WARNING: ' 'Found make: ' make 'Found model: ' model;
+				rc = my_hash.find_next();
+			end;
+		end;
+	end;
+	
+
+	
+run;
+	
+```
+### Moduł 3 - Use SAS utility procedures. 
+- Specify a template using the PICTURE statement within the FORMAT Procedure*
+- Specify templates for date, time, and datetime values using directives.
+- Specify templates for numeric values using digit selectors.
+- PICTURE statement options: round, default, datatype, multiplier, prefix
+```sql
+proc format;
+	value centuries '01JAN1980'd - high = " > 1980"
+		  low - '31DEC1979'd = " < 1980" ;
+run;
+
+proc sql;
+	select date, date as date_fromated format centuries. from sashelp.usecon;
+quit;
+
+option nolabel;
+proc sql;
+	select * from dictionary.columns where format like "MON%" ;
+quit;
+
+proc format;
+	picture pln (round /*default=5*/)  low-high='000,000zł' (multiplier=3.99 prefix='converted to pln: ');
+quit;
+proc sql;
+	select msrp, msrp as pl_msrp format pln. from sashelp.cars;
+quit;
+
+```
+
+
+- Create custom functions with the FCMP procedure
+- Create character and numeric custom functions with single or multiple 
+arguments.
+- Create custom functions based on conditional processing.
+- Use custom functions with the global option CMPLIB=
+
+```sql
+proc fcmp outlib=work.funcs.user;
+	
+	function convert_currency(value, convertion_ratio);
+		flag = 1;
+		if (flag = 1) then
+			value = value;
+		return (value * convertion_ratio);
+	endsub;
+	
+	function add_prefix(value, prefix);
+		return (prefix | value);
+	endsub;
+run;
+
+proc cmplib=work.funcs;
+
+proc fcmp data=sashelp.cars out=withConvertedMsrp;
+	converted_msrp = convert_currency(msrp, 3.99);
+run;
+
+```
+### Moduł 4 Use advanced functions.
+- Finding strings or words with the FINDC/FINDW functions.
+- Counting strings or words with the COUNT/COUNTC/COUNTW functions.
+```sql
+	%let vowels = aeiouy;
+	
+	data work.statistics;
+		expression = "She only sells what she likes to eat.";
+		first_vowel = findc(expression, "&vowels.");
+		first_she = findw(expression, 'she');
+		she_count = count(expression, 'she', 'i');
+		vowels_count = countc(expression, "&vowels.");
+		words_count = countw(expression);
+	run;
+```
+  
+- Retrieve previous values with the LAG function.
+```sql
+
+data work.cars;
+	set sashelp.cars;
+	prev_model = lag(model);
+	two_models_before = lag2(model);
+run;
+
+proc sql;
+	select model, prev_model, two_models_before
+	from work.cars;
+quit;
+```
+ 
+- Regular expression pattern matching with PRX functions*
+- Metacharacters: ()[]{}*+?.|^$\d\D\s\S\w\W
+- Functions and call routines: PRXMATCH, PRXPARSE, PRXCHANGE
+
