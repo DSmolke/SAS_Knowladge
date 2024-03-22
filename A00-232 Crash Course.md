@@ -890,6 +890,10 @@ https://github.com/DSmolke/SAS_Knowladge/assets/106284705/d1f4bb14-4acc-4f9b-bc9
 
 ### Moduł 1 - Process data using 1 and 2 dimensional arrays
 
+
+https://github.com/DSmolke/SAS_Knowladge/assets/106284705/36333bcd-c456-42d1-9bc7-38eb522db16b
+
+
 - Define and use character arrays
 - Define and use numeric arrays
 - Create variables with arrays
@@ -908,6 +912,12 @@ data work.arr_demo;
 run;
 ```
 
+
+
+https://github.com/DSmolke/SAS_Knowladge/assets/106284705/250c8b66-1abb-4d95-ba52-8d586576e763
+
+
+
 - Reference arrays within a DO loop
 
 ```sql
@@ -918,6 +928,12 @@ data work.arr_demo;
 	end;
 run;
 ```
+
+
+
+https://github.com/DSmolke/SAS_Knowladge/assets/106284705/9112a895-b6f8-45fe-91e5-ede668b7936b
+
+
 
 - Load initial values for an array from a SAS data set
 ```sql
@@ -949,6 +965,13 @@ datalines;
 
 run; 
 ```
+
+
+
+https://github.com/DSmolke/SAS_Knowladge/assets/106284705/066c4309-720d-4f35-814c-b091f0992557
+
+
+
 - Specify the array dimension with the DIM function
 
 ```sql
@@ -971,6 +994,8 @@ run;
 ```
 
 ### Moduł 2 - Process data using hash objects.
+
+
 
 - Declare hash and hash iterator objects
 	- Dataset argument
