@@ -9,7 +9,7 @@
 
 
 
-## SAS A00-232 Exam
+## A00-232 SAS 9.4 Advanced Programming Certification
 
 #### SAS Skill Builder - portal do nauki dla studentów https://www.sas.com/pl_pl/learn/academic-programs/students.html#academic-software
 
