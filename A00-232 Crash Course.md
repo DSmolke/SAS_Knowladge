@@ -1,3 +1,5 @@
+<div>
+
 # SAS_Knowladge
 
 #### Środowisko SAS OnDemand for Academics dostępne dla wszystkich https://welcome.oda.sas.com/
@@ -24,6 +26,7 @@ https://github.com/DSmolke/SAS_Knowladge/assets/106284705/24cf1498-791d-4d2d-907
 - Use PROC SQL to perform SQL queries.
 - Select columns in a table with a SELECT statement and FROM clause.
 - Create a table from a query result set.
+
 
 ```sql
     proc sql;
@@ -91,7 +94,8 @@ https://github.com/DSmolke/SAS_Knowladge/assets/106284705/8548f525-d632-42dd-be1
 
 -  Join tables - inner joins, full joins (coalesce function), right joins, left joins.
 
-[placeholder na grafikę joinów]
+![image](https://github.com/DSmolke/SAS_Knowladge/assets/106284705/bfad8182-c4f0-4386-857d-6996892c0472)
+
 
 
 
@@ -997,6 +1001,20 @@ run;
 
 
 
+https://github.com/DSmolke/SAS_Knowladge/assets/106284705/9847f97d-dd0f-4ff4-a74c-4b3ec6c4b5ee
+
+
+
+https://github.com/DSmolke/SAS_Knowladge/assets/106284705/69a64f6a-292a-45fd-8208-dc56c86268fb
+
+
+
+
+https://github.com/DSmolke/SAS_Knowladge/assets/106284705/64fcf7ea-480f-4482-a5fa-bc6829f2bfed
+
+
+
+
 - Declare hash and hash iterator objects
 	- Dataset argument
 	- Ordered argument
@@ -1016,31 +1034,9 @@ run;
 - Use hash objects as lookup tables.
 - Use hash objects to create sorted data sets.
 - Use hash iterator objects to access data in forward or reverse key order
-```
 
-
-/* 
-
-• Declare hash and hash iterator objects
-	o Dataset argument
-	o Ordered argument
-	o Multidata argument
-• Use hash object methods
-	o definekey()
-	o definedata()
-	o definedone()
-	o find()
-	o add()
-	o output()
-• Use hash iterator object methods
-	o first()
-	o next()
-	o last()
-	o prev()
-• Use hash objects as lookup tables.
-• Use hash objects to create sorted data sets.
-• Use hash iterator objects to access data in forward or reverse key order
- */
+  
+```sql
 
 proc sql;
 	create table work.cars as
@@ -1111,6 +1107,13 @@ run;
 	
 ```
 ### Moduł 3 - Use SAS utility procedures. 
+
+
+
+https://github.com/DSmolke/SAS_Knowladge/assets/106284705/1b21f505-c3ba-4343-9ead-75ce4d03ed45
+
+
+
 - Specify a template using the PICTURE statement within the FORMAT Procedure*
 - Specify templates for date, time, and datetime values using directives.
 - Specify templates for numeric values using digit selectors.
@@ -1140,6 +1143,12 @@ quit;
 ```
 
 
+
+https://github.com/DSmolke/SAS_Knowladge/assets/106284705/d8de0427-8b38-4b2e-8b72-74f8322b3a9f
+
+
+
+
 - Create custom functions with the FCMP procedure
 - Create character and numeric custom functions with single or multiple 
 arguments.
@@ -1147,35 +1156,51 @@ arguments.
 - Use custom functions with the global option CMPLIB=
 
 ```sql
-proc fcmp outlib=work.funcs.user;
-	
-	function convert_currency(value, convertion_ratio);
-		flag = 1;
-		if (flag = 1) then
-			value = value;
-		return (value * convertion_ratio);
+proc fcmp outlib=work.funcs.cars;
+	function horsepowerToKW(horsepower);
+		static kwRatio 0.74;
+		if (kwRatio ne .) then do;
+			kw = (horsepower * kwRatio);
+		end;
+		return (kw);
 	endsub;
 	
-	function add_prefix(value, prefix);
-		return (prefix | value);
+	function kwScore(kw) $;
+		length score $ 6;
+		if (kw < 100) then score = 'weak';
+		if (kw >= 100 and kw < 150) then score = 'medium';
+		if (kw >= 150) then score = 'strong';
+		
+		return (score);
 	endsub;
 run;
 
-proc cmplib=work.funcs;
+option CMPLIB=work.funcs;
 
-proc fcmp data=sashelp.cars out=withConvertedMsrp;
-	converted_msrp = convert_currency(msrp, 3.99);
+proc fcmp data=sashelp.cars out=work.cars;
+	length score $ 6;
+	kw = horsepowerToKW(horsepower);
+	kw_score = kwScore(kw);
 run;
 
 ```
+
 ### Moduł 4 Use advanced functions.
+
+
+
+https://github.com/DSmolke/SAS_Knowladge/assets/106284705/d33a595c-e63a-4fff-96dd-bb745d9f8e14
+
+
+
+
 - Finding strings or words with the FINDC/FINDW functions.
 - Counting strings or words with the COUNT/COUNTC/COUNTW functions.
 ```sql
 	%let vowels = aeiouy;
 	
 	data work.statistics;
-		expression = "She only sells what she likes to eat.";
+		expression = "She only buys what she likes to eat.";
 		first_vowel = findc(expression, "&vowels.");
 		first_she = findw(expression, 'she');
 		she_count = count(expression, 'she', 'i');
@@ -1183,8 +1208,16 @@ run;
 		words_count = countw(expression);
 	run;
 ```
+
+
+
+https://github.com/DSmolke/SAS_Knowladge/assets/106284705/179edb32-de04-4e1b-aa34-c12021da37e3
+
+
   
 - Retrieve previous values with the LAG function.
+
+
 ```sql
 
 data work.cars;
@@ -1198,6 +1231,12 @@ proc sql;
 	from work.cars;
 quit;
 ```
+
+
+
+https://github.com/DSmolke/SAS_Knowladge/assets/106284705/43921a9e-d669-481c-b55b-c66fa5638a00
+
+
  
 - Regular expression pattern matching with PRX functions*
 - Metacharacters: ()[]{}*+?.|^$\d\D\s\S\w\W
@@ -1215,3 +1254,4 @@ data tmp;
 	expression3 = prxchange('s/(\D+)(\d+)/$2$1/', -1, expression1);
 run;
 ```
+</div>
